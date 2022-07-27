@@ -165,6 +165,9 @@ function checkAnswer(btn) {
       //verifica se ainda há perguntas
       if (actualQuestion>=questions.length ) {
         //Apresenta mensagem de sucesso
+
+       showSuccessMessage()
+       return
         
       }
 
@@ -172,6 +175,33 @@ function checkAnswer(btn) {
       
     },1500)
   }
+
+  //Exibe a tela final
+
+  function showSuccessMessage() {
+
+     //trocar dados da tela de sucesso
+    quizzContainer.classList.toggle("hide")
+    scoreContainer.classList.toggle('hide')
+
+    //calcular o score
+    const score = ((points / questions.length) * 100).toFixed(2)
+
+    console.log(score,points, questions.length)
+
+    const displayScore = document.querySelector('#display-score')
+
+    displayScore.textContent= score.toString()
+
+    //Alterar o número de perguntas corretas
+    const correctAnswers = document.querySelector('#correct-answers')
+    correctAnswers.textContent = points
+
+    //Alterar o total de perguntas
+    const totalQuestions = document.querySelector("#questions-qty")
+    totalQuestions.textContent = questions.length
+  }
+
 
 //Inicialização do quizz
 init()
