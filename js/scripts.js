@@ -74,7 +74,6 @@ const questions = [
 ]
 
 //Substituição do quizz para a primeira pergunta
-
 function init() {
 
   //Criar a primeira pergunta
@@ -96,7 +95,7 @@ function createQuestion(i) {
   const questionText = question.querySelector('#question-text')
   const questionNumber = question.querySelector('#question-number')
 
-  questionText.textContent = question[i]
+  questionText.textContent = questions[i].question
   questionNumber.textContent = i + 1
 
   //Insere as alternativas
@@ -121,14 +120,58 @@ function createQuestion(i) {
 
     //Inserir evento de click no botão
     answerTemplate.addEventListener('click',function () {
-      console.log(this)      
+      checkAnswer(this)    
     })
-
-    //incrementar o número da questão
-    actualQuestion ++
-    
   })
+
+      //incrementar o número da questão
+      actualQuestion ++
 }
+
+//Verifica a resposta do usuário
+function checkAnswer(btn) {
+ 
+  //Seleciona todos os botões
+  const buttons = answersBox.querySelectorAll('button')
+
+  //Verifica se a resposta está correta e adiciona classe nos botões
+  buttons.forEach(function (button) {
+
+    if(button.getAttribute("correct-answer") ==='true'){
+      button.classList.add("correct-answer")
+
+      //checca se o usuario acertou a pergunta
+      if(btn === button){
+        points++
+      }
+
+    }else{
+      button.classList.add("wrong-answer")
+    }
+  })
+
+  //Exibir proxima pergunta
+  nextQuestion(actualQuestion)
+  
+}
+
+
+  //Exibir proxima pergunta
+  function nextQuestion(){
+   
+    //Timer para o usuário ver as respostas
+    setTimeout(function () {
+
+      //verifica se ainda há perguntas
+      if (actualQuestion>=questions.length ) {
+        //Apresenta mensagem de sucesso
+        
+      }
+
+      createQuestion(actualQuestion)
+      
+    },1500)
+  }
 
 //Inicialização do quizz
 init()
