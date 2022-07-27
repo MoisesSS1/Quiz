@@ -177,12 +177,10 @@ function checkAnswer(btn) {
   }
 
   //Exibe a tela final
-
   function showSuccessMessage() {
 
      //trocar dados da tela de sucesso
-    quizzContainer.classList.toggle("hide")
-    scoreContainer.classList.toggle('hide')
+     hideOrshowQuizz()
 
     //calcular o score
     const score = ((points / questions.length) * 100).toFixed(2)
@@ -202,6 +200,27 @@ function checkAnswer(btn) {
     totalQuestions.textContent = questions.length
   }
 
+
+//Mostrar ou esconder o score
+
+function hideOrshowQuizz() {
+  quizzContainer.classList.toggle("hide")
+  scoreContainer.classList.toggle('hide')
+  
+}
+
+
+  //Reiniciar Quizz
+  const restartBtn = document.querySelector('#restart')
+
+  restartBtn.addEventListener("click",()=>{
+    //Zerar o jogo
+
+    actualQuestion = 0
+    points= 0
+    hideOrshowQuizz()
+    init()
+  })
 
 //Inicialização do quizz
 init()
